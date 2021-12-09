@@ -2,6 +2,9 @@ const select = document.querySelectorAll(".currency");
 const btn = document.getElementById("btn");
 const num = document.getElementById("num");
 const ans = document.getElementById("ans");
+const reset = document.getElementById("reset");
+
+
 
 fetch("https://api.frankfurter.app/currencies")
   .then((data) => data.json())
@@ -25,7 +28,7 @@ btn.addEventListener("click", () => {
   if (currency1 != currency2) {
     convert(currency1, currency2, value);
   } else {
-    alert("Choose Diffrent Currency");
+    swal("Error", "Please Choose Diffrent Currency!", "error");
   }
 });
 
@@ -36,7 +39,12 @@ function convert(currency1, currency2, value) {
   )
     .then((val) => val.json())
     .then((val) => {
-      console.log(Object.values(val.rates)[0]);
       ans.value = Object.values(val.rates)[0];
     });
 }
+reset.addEventListener("click", () => {
+    let resetearNum = num.value - num.value;
+    let resetearAns = ans.value - ans.value;
+    num.value = resetearNum;
+    ans.value = resetearAns;
+});
